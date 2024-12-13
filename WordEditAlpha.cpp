@@ -14,6 +14,7 @@ using namespace std;
 mt19937 rd(time(0));
 
 namespace tools{
+/*
     /// @brief 让光标定位到指定位置。
     /// @param x 位置的横坐标
     /// @param y 位置的纵坐标
@@ -21,6 +22,7 @@ namespace tools{
         COORD coord = {x, y}; 
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),coord);
     }
+*/
 
     /// @brief 把字符串按空格拆分为多个不含空格的字符串。
     /// @param s 要拆分的字符串。
