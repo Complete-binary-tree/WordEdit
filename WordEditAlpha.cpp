@@ -51,6 +51,16 @@ struct IO{
     bool Readed;                        //读取
     int bowl[6];                        //熟练度桶
 
+    /// @brief 清空
+    inline void clear(){
+        wordEnglish.clear();
+        wordChinese.clear();
+        wordProficient.clear();
+        n=0;
+        Readed=0;
+        memset(bowl,0,sizeof bowl);
+    }
+
     /// @brief 读取英语单词文件。
     inline void read(){
         ifstream in("words.dat");
@@ -338,7 +348,6 @@ struct IO{
             //输入文件
             string name;
             getline(cin,name);
-            //getline(cin,name);
 
             //读取文件
             ifstream in(name);
@@ -346,6 +355,7 @@ struct IO{
             int n;
             in>>n;  //单词个数
             this->n+=n;
+            getline(in,s);  //读入空行
             for(int i=1;i<=n;++i){
                 //读入&新建单词
                 getline(in,s);
@@ -355,6 +365,9 @@ struct IO{
                 wordProficient.push_back(5);
                 bowl[5]++;
             }
+            cout<<"添加成功！按任意键继续。\n";
+            while(_kbhit())_getch();
+            _getch();
         }
     }
 
@@ -393,6 +406,8 @@ struct IO{
         swap(wordProficient[id],wordProficient[n-1]);
         bowl[wordProficient[n-1]]--;
         --n;
+
+        return 1;
     }
 
     /// @brief 按照英文删除单词。
@@ -415,7 +430,7 @@ struct IO{
     ///
     /// 请注意这里打印的编号比真实编号多1。
     inline void printwords(){
-        cout<<"编号\t英文单词\t中文\n";
+        cout<<"编号\t英文\t中文\n";
         for(int i=0;i<n;++i){
             cout<<i+1<<'\t';
             showEnglish(i);
@@ -494,7 +509,7 @@ struct IO{
 
             //删除单词
             if(ch=='1'){
-                cout<<"\n1-按编号删除\n2-按英文删除\n";
+                cout<<"\n1-按编号删除\n2-按英文删除\n3-删除全部\n";
 
                 //检测输入
                 while(_kbhit())_getch();
@@ -526,6 +541,17 @@ struct IO{
                     bool ret=deleteword(s);
                     if(ret)cout<<"删除成功！\n";
                     else cout<<"删除失败，请检查单词是否存在！\n";
+                }
+                //全部删除
+                else if(ch=='3'){
+                    cout<<"\n确定要全部删除吗？\n你的所有单词都会丢失！\n按 1 确定删除。\n";
+                    while(_kbhit())_getch();
+                    char ch=_getch();
+                    if(ch=='1'){
+                        clear();
+                        Readed=1;
+                        break;
+                    }
                 }
             }
             //更改
@@ -640,17 +666,12 @@ struct IO{
             while(_kbhit())_getch();
             _getch();
         }
+        write();
     }
 
     /// @brief 构造函数。
     IO(){
-        //清空
-        wordEnglish.clear();
-        wordChinese.clear();
-        wordProficient.clear();
-        n=0;
-        Readed=0;
-        memset(bowl,0,sizeof bowl);
+        clear();
         //read();
     }
     ~IO(){
