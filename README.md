@@ -8,6 +8,12 @@
 
 **该程序使用 GBK 编码，请勿使用 UTF-8 编码保存或在 UTF-8 环境下运行，也请勿使其读入 UTF-8 文件，否则可能出现问题。**
 
+编译使用如下命令：
+
+```powershell
+g++ -o WordEditAlpha.exe WordEditAlpha.cpp -std=c++17 -static
+```
+
 ## 简介
 
 一个背单词软件。
