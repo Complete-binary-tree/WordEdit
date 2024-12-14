@@ -1,3 +1,9 @@
+/*
+Copyright(c) 2024 complete_binary_tree
+
+WordEditAlpha v1.1(With MIT License)
+Last Update:2024/12/13
+*/
 #include<iostream>
 #include<windows.h>
 #include<vector>

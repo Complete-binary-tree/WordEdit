@@ -11,7 +11,7 @@
 编译使用如下命令：
 
 ```powershell
-g++ -o WordEditAlpha.exe WordEditAlpha.cpp -std=c++17 -static
+g++ -o WordEditAlpha.exe WordEditAlpha.cpp -std=c++17 -static-libgcc -static-libstdc++
 ```
 
 ## 简介
