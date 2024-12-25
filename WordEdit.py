@@ -4,7 +4,7 @@ from tkinter import messagebox
 from typing import List
 from WordEdit_WordsClass import *
 from tkinter import ttk
-import TKtools as extk
+import tools
 from random import *
 
 # 开始的一些全局变量
@@ -12,6 +12,8 @@ WEversion = 'alpha-v2.1'
 _font = '等线'
 focus_in_entry_addword_en = '输入英文...'
 focus_in_entry_addword_ch = '输入中文...（不同的中文以空格分隔）'
+setting = init_settings()
+setting.read('settings.WE')
 
 # 清空
 def clear_WE():
@@ -72,6 +74,7 @@ def _button_del(wordlist : ttk.Treeview):
 
     # 确认删除
     if ret:
+        focuson=sorted(focuson,reverse=True)
         for wid in focuson:
             del word[int(wid)]
             wordlist.delete(wid)
@@ -188,7 +191,7 @@ def WE_show_editword():
     txt1.pack(pady=5)
 
     # 创建“查询单词”输入框
-    en_query=extk.EntryEx(mainwindow,placeholder='输入以查询单词……',font=(_font,14),width=50,command=lambda:refresh_list(wordlist,en_query.get()))
+    en_query=tools.EntryEx(mainwindow,placeholder='输入以查询单词……',font=(_font,14),width=50,command=lambda:refresh_list(wordlist,en_query.get()))
     en_query.pack(pady=5)
 
     # 创建框架来存放单词列表

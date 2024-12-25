@@ -66,3 +66,66 @@ class EntryEx(tk.Entry):
     def get_real_value(self):
         """获取真实用户输入内容"""
         return self.get()
+
+# 读取.WE文件
+class WE_file(dict):
+    def __init__(self,filename = None,**kwrgs):
+        super().__init__(kwrgs)
+        if filename:
+            self.read(filename)
+
+    # 读取文件。正常返回 0。
+    # 返回 1：文件后缀不对
+    # 返回 2：文件格式不对
+    # 返回 3：找不到文件
+    # 返回 4：无法打开文件
+    # 格式：<string>:<value>
+    # <value>:
+    # "字符串在双引号里面"
+    # 111         1.0f
+    # ^ 这是 int  ^ 这是 float
+    def read(self,filename : str) -> int:
+        chk = filename.split('.')
+        if chk[-1] != 'WE':
+            return 1
+        
+        try:
+            with open(filename,'r',encoding='UTF-8') as f:
+                for lines in f:
+                    try:
+                        key,value = lines.strip().split(':')
+                    except ValueError:
+                        return 2
+                    
+                    if value[0] == value[-1] and value[0] == '"':
+                        value=value[1:-1]
+                    elif value[-1] == 'f':
+                        try:
+                            value = float(value[:-1])
+                        except ValueError:
+                            return 2
+                    else:
+                        try:
+                            value = int(value)
+                        except ValueError:
+                            self.clear()
+                            return 2
+                    
+                    self[key] = value
+        except FileNotFoundError:
+            return 3
+        except IOError:
+            return 4
+        
+    # 写文件。
+    def write(self,filename : str):
+        with open(filename,'r',encoding='UTF-8') as f:
+            for key,value in self.items():
+                if type(value) == str:
+                    value = '"' + value + '"'
+                elif type(value) == int:
+                    value = str(value)
+                elif type(value) == float:
+                    value = str(value) + 'f'
+
+                f.write(key + ':' + value)

@@ -1,4 +1,5 @@
 ﻿from typing import List
+import tools
 
 class words:
     # 自己，英语，中文，熟练度
@@ -18,10 +19,28 @@ class words:
     # 检验中文是否正确
     def Check_Ch(self,Ch : List[str]) -> bool:
         print(f'检验中文：{Ch}')
+        Ch = list(set(Ch)) # 去重
+        truecnt = 0
         for useropt in Ch:
             for selfword in self.wCh:
+                # 特殊符号
+                if selfword[0] == '(' and selfword[-1] == ')': continue
+                if selfword[0] == '[' and selfword[-1] == ']': selfword=selfword[1:-1]
+
                 if useropt == selfword:
-                    return 1
+                    truecnt += 1
+                    break
+        
+        allcnt= 0
+        for selfword in self.wCh:
+            # 特殊符号
+            if selfword[0] == '(' and selfword[-1] == ')': continue
+            allcnt += 1
+
+        if setting['checker_type'] == 'one' and truecnt >= 1:
+            return 1
+        if setting['checker_type'] == 'all' and truecnt >= allcnt:
+            return 1
         return 0
 
     # 根据回答正确与否更改熟练度
@@ -83,3 +102,10 @@ def output_words():
             opt.write(_word.wEn + '\t' + ' '.join(_word.wCh) + '\t' + str(_word.wP) + '\n')
             # print("111")
         print('保存成功')
+
+# 设置初始化
+def init_settings() -> tools.WE_file:
+    ret = {
+        'checker_type':'one' # all/one，全文/单个
+    }
+    return tools.WE_file(map=ret)
