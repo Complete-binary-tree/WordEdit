@@ -119,7 +119,7 @@ class WE_file(dict):
         
     # 写文件。
     def write(self,filename : str):
-        with open(filename,'r',encoding='UTF-8') as f:
+        with open(filename,'w',encoding='UTF-8') as f:
             for key,value in self.items():
                 if type(value) == str:
                     value = '"' + value + '"'
@@ -128,4 +128,4 @@ class WE_file(dict):
                 elif type(value) == float:
                     value = str(value) + 'f'
 
-                f.write(key + ':' + value)
+                f.write(str(key) + ':' + str(value) + '\n')
