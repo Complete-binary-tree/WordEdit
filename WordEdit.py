@@ -8,7 +8,7 @@ import tools
 from random import *
 
 # 开始的一些全局变量
-WEversion = 'alpha-v2.1'
+WEversion = (2,2)
 _font = '等线'
 focus_in_entry_addword_en = '输入英文...'
 focus_in_entry_addword_ch = '输入中文...（不同的中文以空格分隔）'
