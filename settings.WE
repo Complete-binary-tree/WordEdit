@@ -1,6 +1,6 @@
 dark_mode:0
 language:'中文（简体）'
 tips_pack:'中文基本包'
-tips_color_begin:'#ff8000'
-tips_color_end:'#ff0000'
-tips_change_time:1000
+tips_color_begin:'#ff0000'
+tips_color_end:'#ff8000'
+tips_change_time:500

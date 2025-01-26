@@ -1,6 +1,6 @@
 ﻿import random
 import os
-import tkintertools as tkt
+import maliang as ml
 
 # tips~
 class tips(dict):
@@ -171,7 +171,7 @@ class language(dict):
 			return _key
 
 # deepseek贡献的BetterSpinbox，具有焦点离开时回调功能
-class CustomSpinBox(tkt.SpinBox):
+class CustomSpinBox(ml.SpinBox):
 	def __init__(self, root, pos, **kwrgs):
 		if 'command_fc_out' in kwrgs.keys():
 			print(kwrgs['command_fc_out'])
